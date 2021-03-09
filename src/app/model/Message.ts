@@ -1,27 +1,21 @@
 
 export class Message {
 	private from: string;
-	private to: string;
 	private body: string | ArrayBuffer;
 	private timestamp: bigint;
 	private type: string;
-	private cachePath: string;
 
-	constructor(from: string, to: string, body: string | ArrayBuffer, timestamp: bigint, type: string, cachePath: string, m: Message) {
+	constructor(from: string, body: string | ArrayBuffer, timestamp: bigint, type: string, m: Message) {
 		if (m != null) {
 			this.from = m.from;
-			this.to = m.to;
 			this.body = m.body;
 			this.timestamp = m.timestamp;
 			this.type = m.type;
-			this.cachePath = m.cachePath;
 		} else {
 			this.from = from;
-			this.to = to;
 			this.body = body;
 			this.timestamp = timestamp;
 			this.type = type;
-			this.cachePath = cachePath;
 		}
 	}
 
@@ -39,14 +33,6 @@ export class Message {
 
 	set _from(value: string) {
 		this.from = value;
-	}
-
-	get _to(): string {
-		return this.to;
-	}
-
-	set _to(value: string) {
-		this.to = value;
 	}
 
 	get _body(): string|ArrayBuffer {

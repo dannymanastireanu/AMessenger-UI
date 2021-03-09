@@ -19,6 +19,9 @@ declare var SockJS;
 declare var Stomp;
 declare var JSEncrypt: any;
 import {User} from '../model/User';
+import {environment} from "../../environments/environment";
+import {map} from "rxjs/operators";
+import {SharedUser} from "../service/SharedUser";
 
 
 @Component({
@@ -35,7 +38,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
 	public messageInputText: string;
 	public user;
 	public stompClient;
-	public messageHistory: {};
+	public messageHistory: Array<Message>;
 	public cryptoRSA;
 	public decryptoRSA;
 
@@ -70,7 +73,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
 
 
 	// tslint:disable-next-line:variable-name max-line-length
-	constructor(private http: HttpClient) {
+	constructor(private http: HttpClient, private sharedUser: SharedUser) {
 		this.messageInputText = '';
 		this.cryptoRSA = new JSEncrypt();
 		this.decryptoRSA = new JSEncrypt();
@@ -78,8 +81,33 @@ export class ChatRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
 
 
 	ngOnInit(): void {
-
+	  this.getUserByToken();
+    this.setHistoryMessage();
 	}
+
+  async setHistoryMessage(): Promise<void> {
+    await this.http.get(environment.apiUrl + 'user/messages',
+      {observe: 'response', headers: {'authorization': localStorage.getItem('authorization')}}).subscribe(
+      data=>{
+        let messages = data.body as [];
+        this.messageHistory = new Array<Message>();
+        messages.forEach(m =>  {
+          this.messageHistory.push(new Message(m["from"], m["body"], m["timestamp"], m["type"], null));
+        });
+      }
+    );
+  }
+
+  async getUserByToken(): Promise<void> {
+	  await this.http.get(environment.apiUrl + 'user', {observe: 'response', headers: {'authorization': localStorage.getItem('authorization')}}).subscribe(
+	    res => {
+	      let tmpu = res.body;
+	      this.user = new User(tmpu["username"], "", tmpu["fullName"], tmpu["mail"], tmpu["image"]);
+	      this.sharedUser.nextUser(this.user);
+      }, error => console.error(error)
+    );
+  }
+
 
 
 	initStomp(): void {
@@ -87,8 +115,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
 			login: this.user._username,
 			passcode: this.user._password,
 		};
-		const staticUrl = 'http://localhost:8080';
-		const serverUrl = staticUrl + '/chat';
+		const serverUrl = environment.apiUrl + 'chat';
 		const ws = new SockJS(serverUrl);
 		this.stompClient = Stomp.over(ws);
 		const that = this;
@@ -98,12 +125,12 @@ export class ChatRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
 			console.log('Connected: ' + frame);
 			that.stompClient.subscribe('/topic/messages/' + that.user.username, (message) => {
 				console.log('Subscribe at: /topic/messages/' + this.user.username.toString());
-				const messageFromFriend: Message = new Message(null, null, null, null, null, null, JSON.parse(message.body));
-				if (messageFromFriend._type === 'text') {
-					messageFromFriend._body = this.decryptoRSA.decrypt(messageFromFriend._body);
-				} else if (messageFromFriend._type === 'image') {
-					messageFromFriend._body = messageFromFriend._body;
-				}
+				// const messageFromFriend: Message = new Message(null, null, null, null, null, null, JSON.parse(message.body));
+				// if (messageFromFriend._type === 'text') {
+				// 	messageFromFriend._body = this.decryptoRSA.decrypt(messageFromFriend._body);
+				// } else if (messageFromFriend._type === 'image') {
+				// 	messageFromFriend._body = messageFromFriend._body;
+				// }
 				// this.messageHistory[this.connectedWith.username].push(messageFromFriend);
 			});
 		}, () => {

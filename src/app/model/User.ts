@@ -1,27 +1,53 @@
 
 export class User {
     private uuid: string;
-    private username: string;
+    private _username: string;
     private password: string;
-    private fullName: string;
-    private mail: string;
-    private image: any;
+    private _fullName: string;
+    private _mail: string;
+    private _image: any;
 
     constructor( username: string, password: string, fullName: string, mail: string, image: any ) {
-        this.username = username;
+        this._username = username;
         this.password = password;
-        this.fullName = fullName;
-        this.mail = mail;
-        this.image = image;
+        this._fullName = fullName;
+        this._mail = mail;
+        this._image = image;
     }
 
-    get _username(): string {
-        return this.username;
-    }
 
-    set _username(value: string) {
-        this.username = value;
-    }
+  get username(): string {
+    return this._username;
+  }
+
+  set username(value: string) {
+    this._username = value;
+  }
+
+  get fullName(): string {
+    return this._fullName;
+  }
+
+  set fullName(value: string) {
+    this._fullName = value;
+  }
+
+  get mail(): string {
+    return this._mail;
+  }
+
+  set mail(value: string) {
+    this._mail = value;
+  }
+
+  get image(): any {
+    return this._image;
+  }
+
+  set image(value: any) {
+    this._image = value;
+  }
+
 
     get _password(): string {
         return this.password;

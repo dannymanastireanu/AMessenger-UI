@@ -1,30 +1,31 @@
 <div class="chat__header">
     <div class="chat__headerInfo">
-        <h3>Chat with everyone</h3>
-        <p>Last seen at 2.69.2009</p>
+<!--        <h2>Alpha Messenger</h2>-->
     </div>
 
 </div>
 
 <div class="chat__body" #scrollMe>
-<!--    <div *ngFor="let message of this.messageHistory[this.connectedWith.username]">-->
-<!--        <p *ngIf="message._from == this.user.username && message._type === 'text'"  class="chat__message chat__receiver">-->
-<!--            {{message._body}}-->
-<!--            <span class="chat__timestamp">{{message.getTime()}}</span>-->
-<!--        </p>-->
-<!--        <p *ngIf="message._from == this.connectedWith.username && message._type === 'text'" class="chat__message">{{message._body}}`-->
-<!--            <span class="chat__timestamp">{{message.getTime()}}</span>-->
-<!--        </p>-->
+    <div *ngFor="let message of this.messageHistory">
+        <p *ngIf="message._from == this.user.username && message._type === 'text'"  class="chat__message chat__receiver">
+            {{message._body}}
+            <span class="chat__timestamp">{{message.getTime()}}</span>
+        </p>
+        <p *ngIf="message._from != this.user.username && message._type === 'text'" class="chat__message">{{message._body}}
+            <span class="chat__name">{{message._from}}</span>
+            <span class="chat__timestamp">{{message.getTime()}}</span>
+        </p>
 
-<!--        <p *ngIf="message._from == this.user.username  && message._type === 'image'"  class="chat__message chat__receiver">-->
-<!--            <img [src]="message._body" height="200" *ngIf="message._body">-->
-<!--            <span class="chat__timestamp">{{message.getTime()}}</span>-->
-<!--        </p>-->
-<!--        <p *ngIf="message._from == this.connectedWith.username && message._type === 'image'" class="chat__message">-->
-<!--            <img [src]="message._body" height="200" *ngIf="message._body">-->
-<!--            <span class="chat__timestamp">{{message.getTime()}}</span>-->
-<!--        </p>-->
-<!--    </div>-->
+        <p *ngIf="message._from == this.user.username  && message._type === 'image'"  class="chat__message chat__receiver">
+            <img [src]="message._body" height="200" *ngIf="message._body">
+            <span class="chat__timestamp">{{message.getTime()}}</span>
+        </p>
+        <p *ngIf="message._from != this.user.username && message._type === 'image'" class="chat__message">
+            <img [src]="message._body" height="200" *ngIf="message._body">
+            <span class="chat__name">{{message._from}}</span>
+            <span class="chat__timestamp">{{message.getTime()}}</span>
+        </p>
+    </div>
 </div>
 
 <div class="chat__footer">

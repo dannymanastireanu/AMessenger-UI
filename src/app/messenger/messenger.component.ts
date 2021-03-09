@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {User} from '../model/User';
 import {LoginComponent} from '../login/login.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -10,11 +10,8 @@ import {environment} from "../../environments/environment";
 	templateUrl: './messenger.component.html',
 	styleUrls: ['./messenger.component.css']
 })
-export class MessengerComponent implements OnInit {
-	clickedRoom = true;
+export class MessengerComponent implements OnInit, OnDestroy {
 	private peoples;
-
-
 	message: User;
 
 	constructor(private http: HttpClient) {

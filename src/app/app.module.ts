@@ -13,6 +13,7 @@ import { AuthGuardService as AuthGuard } from './auth/AuthGuardService';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatCardModule} from "@angular/material/card";
 import {FormsModule} from "@angular/forms";
+import {SharedUser} from "./service/SharedUser";
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -46,7 +47,7 @@ const appRoutes: Routes = [
   ],
   exports: [RouterModule],
   providers: [
-
+        SharedUser,
   ],
   bootstrap: [AppComponent]
 })

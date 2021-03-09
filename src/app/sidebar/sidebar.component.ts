@@ -5,6 +5,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/c
 import {Friend} from '../model/Friend';
 import {NgForm} from '@angular/forms';
 import {environment} from "../../environments/environment";
+import {SharedUser} from "../service/SharedUser";
 
 @Component({
 	selector: 'app-sidebar',
@@ -13,46 +14,27 @@ import {environment} from "../../environments/environment";
 })
 export class SidebarComponent implements OnInit {
 
-	public user;
+	public user: User;
 	public friendsList: Array<Friend>;
 
 	public messageHistory: {};
 
 	// tslint:disable-next-line:variable-name
-	constructor(private http: HttpClient) {
+	constructor(private http: HttpClient, private sharedUser: SharedUser) {
 
 		// init with server req.
 		this.friendsList = [];
 		this.messageHistory = {};
-
 	}
 
 	ngOnInit(): void {
     this.refreshFriendList();
-	}
-
-	async setHistoryMessage(myFriend: Friend): Promise<void> {
-		if (this.messageHistory[myFriend.username] === undefined) {
-			this.messageHistory[myFriend.username] = [];
-			const headers = new HttpHeaders();
-			headers.set('Content-Type', 'application/json; charset=utf-8');
-			await this.http.get('http://localhost:8080/avoice/messages/' + myFriend.username,
-				{responseType: 'text', withCredentials: true}).subscribe( data => {
-				const multeMesaje = (JSON.parse(data) as Message);
-				// tslint:disable-next-line:forin
-				for (const i in multeMesaje){
-					this.messageHistory[myFriend.username].push(
-						new Message(multeMesaje[i].from, multeMesaje[i].to, multeMesaje[i].body,
-							multeMesaje[i].timestamp, multeMesaje[i].type, multeMesaje[i].cachePath, null));
-				}
-			});
-		}
+    this.sharedUser.sharedUser.subscribe(u => this.user = u);
 	}
 
 	refreshFriendList(): void {
 		this.http.get(environment.apiUrl + 'user/friends', {responseType: 'text', headers: {'authorization':localStorage.getItem('authorization')}}).subscribe(data => {
 			this.friendsList = JSON.parse(data);
-			console.log(JSON.stringify("ALL MY " + this.friendsList));
 		});
 	}
 

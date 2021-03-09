@@ -1,9 +1,10 @@
 <div class="sidebar__header">
     <mat-card class="user__profilepic">
-        <img mat-card-avatar src="assets/avatar.jpg">
+        <img mat-card-avatar [src]=user.image onerror="this.src='../../assets/img_avatar.png';">
     </mat-card>
     <div class="sidebarChat__info" >
-        <h1>My full name</h1>
+        <h1>{{user.fullName}}</h1>
+        <h2>{{user.username}}</h2>
     </div>
     <div class="sidebar__headerRight">
     </div>
@@ -16,6 +17,7 @@
             <img [src]="friend.onlineStatus == 'true'? '../../assets/online.png' : '../../assets/offline.png'" class="online-bullet"/>
             <div class="sidebarChat__info" >
                 <h2>{{friend.fullName}}</h2>
+                <p>Last seen at: {{friend.lastSeenAt}}</p>
             </div>
         </div>
     </div>
