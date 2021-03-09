@@ -1,67 +1,59 @@
 
 export class User {
     private uuid: string;
-    private _username: string;
+    private username: string;
     private password: string;
-    private _fullName: string;
-    private _mail: string;
-    private _image: any;
+    private fullName: string;
+    private mail: string;
+    private image: any;
 
     constructor( username: string, password: string, fullName: string, mail: string, image: any ) {
-        this._username = username;
+        this.username = username;
         this.password = password;
-        this._fullName = fullName;
-        this._mail = mail;
-        this._image = image;
+        this.fullName = fullName;
+        this.mail = mail;
+        this.image = image;
     }
 
 
-  get username(): string {
-    return this._username;
+  get _username(): string {
+    return this.username;
   }
 
-  set username(value: string) {
-    this._username = value;
+  set _username(value: string) {
+    this.username = value;
   }
 
-  get fullName(): string {
-    return this._fullName;
+  get _fullName(): string {
+    return this.fullName;
   }
 
-  set fullName(value: string) {
-    this._fullName = value;
+  set _fullName(value: string) {
+    this.fullName = value;
   }
 
-  get mail(): string {
-    return this._mail;
+  get _mail(): string {
+    return this.mail;
   }
 
-  set mail(value: string) {
-    this._mail = value;
+  set _mail(value: string) {
+    this.mail = value;
   }
 
-  get image(): any {
-    return this._image;
+  get _image(): any {
+    return this.image;
   }
 
-  set image(value: any) {
-    this._image = value;
+  set _image(value: any) {
+    this.image = value;
   }
 
 
-    get _password(): string {
-        return this.password;
-    }
+  get _password(): string {
+    return this.password;
+  }
 
-    set _password(value: string) {
-        this.password = value;
-    }
-
-    set _uuid(value: string) {
-        this.uuid = value;
-    }
-
-    get _uuid(): string {
-        return this.uuid;
-    }
+  set _password(value: string) {
+    this.password = value;
+  }
 }

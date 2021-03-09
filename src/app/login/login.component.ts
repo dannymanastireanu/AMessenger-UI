@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit{
 
 	public loginRequest(username: string, password: string): any {
 		this.user = new User(username, password, '', username, null);
+		console.log(this.user);
 
 		const obsuser = this.http.post(environment.apiUrl + 'user/login', this.user,
 			{responseType: 'text'}).subscribe(
