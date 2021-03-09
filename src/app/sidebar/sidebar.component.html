@@ -1,0 +1,22 @@
+<div class="sidebar__header">
+    <mat-card class="user__profilepic">
+        <img mat-card-avatar src="assets/avatar.jpg">
+    </mat-card>
+    <div class="sidebarChat__info" >
+        <h1>My full name</h1>
+    </div>
+    <div class="sidebar__headerRight">
+    </div>
+</div>
+
+<div class="sidebar__chats">
+    <div *ngFor="let friend of friendsList">
+        <div class="sidebarChat">
+            <img mat-card-avatar class="avatar" [src]=friend.image onerror="this.src='../../assets/img_avatar.png';">
+            <img [src]="friend.onlineStatus == 'true'? '../../assets/online.png' : '../../assets/offline.png'" class="online-bullet"/>
+            <div class="sidebarChat__info" >
+                <h2>{{friend.fullName}}</h2>
+            </div>
+        </div>
+    </div>
+</div>

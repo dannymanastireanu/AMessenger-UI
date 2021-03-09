@@ -1,0 +1,14 @@
+<div>
+    <div class="container">
+        <label><b>username/email</b></label>
+        <input #user type="text" placeholder="Enter your username" id="user" required />
+
+        <label><b>password</b></label>
+        <input #pass type="password" placeholder="Enter your password" id="pass" required />
+
+        <button id="button-login" type="submit" (click)="loginRequest(user.value, pass.value)">
+            Login
+        </button>
+        <a href="http://localhost:4200/register" (click)="goToRegister()">Create an account</a>
+    </div>
+</div>

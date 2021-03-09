@@ -1,0 +1,60 @@
+.app__body {
+    /*margin-left: 50px;*/
+    display: flex;
+    background-color: rgb(248, 249, 250);
+    height: 90vh;
+    /*width: 90vw;*/
+    margin: auto;
+    width: 100%;
+    border: 3px solid #4c4c4c;
+    padding: 10px;
+}
+
+h1.paragraf {
+    text-align: center;
+    color: white;
+}
+
+.sidebar {
+    display: flex;
+    flex: 0.2;
+    flex-direction: column;
+}
+
+.chat {
+    flex: 0.8;
+    display: flex;
+    flex-direction: column;
+    background-color: #e2e2e2;
+}
+
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+/* Avatar image */
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
+
+/* Add padding to containers */
+.container {
+    padding: 16px;
+}
+
+h1 {
+    padding: 30px;
+    text-align: center;
+    color: #474747;
+    font-size: xx-large;
+    font-family: Monaco, "Lucida Console", monospace;
+}
+
+h1:hover {
+    color: gold;
+    opacity: 50%;
+    cursor: not-allowed;
+    text-shadow: #f6f6f6;
+}

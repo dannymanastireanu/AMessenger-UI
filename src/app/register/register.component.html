@@ -1,0 +1,44 @@
+<div class="container">
+   <div class="form-group">
+      <div class="custom-file">
+         <input
+            type="file"
+            accept=".jpg, .jpeg, .png"
+            class="custom-file-input"
+            (change)="handleFileInput($event.target.files)"
+            />
+         <label class="custom-file-label">{{ fileName }}</label>
+      </div>
+   </div>
+   <div *ngIf="imageFile.name !== 'default'" class="form-group">
+      <img [src]="imageFile.pic" class="img-fluid" *ngIf="imageFile.pic" />
+   </div>
+   <label><b>Full name</b></label>
+   <input
+      #fullname
+      type="text"
+      placeholder="Enter full name"
+      id="fullname"
+      required
+      />
+   <label><b>Mail</b></label>
+   <input #mail type="text" placeholder="mail@xxx.com" id="mail" required />
+   <label><b>Username</b></label>
+   <input #user type="text" placeholder="Enter username" id="user" required />
+   <label><b>Password</b></label>
+   <input
+      #pass
+      type="password"
+      placeholder="Enter password"
+      id="pass"
+      required
+      />
+   <button
+      type="submit"
+      (click)="
+      registerRequest(fullname.value, mail.value, user.value, pass.value)
+      "
+      >
+   Register
+   </button>
+</div>

@@ -1,0 +1,53 @@
+.sidebar__header {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-left: 20px;
+    border-bottom: 1px solid lightgray;
+}
+
+.sidebar__headerRight {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+button.mat-mini-fab{
+    box-shadow: none;
+}
+
+.sidebar__chats {
+    flex: 1;
+    background-color: white;
+    overflow-y: scroll;
+}
+
+.sidebarChat {
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    line-height: 0.75;
+
+    padding-left: 15px;
+    border-bottom: 1px solid lightgray;
+}
+
+.sidebarChat:hover {
+    background-color: #ebebeb;
+}
+
+.sidebarChat__info > h2 {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.user__profilepic {
+    margin-bottom: 20px;
+}
+
+.online-bullet{
+    width: 10px;
+    height: 10px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
